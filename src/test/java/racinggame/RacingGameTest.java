@@ -7,6 +7,8 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 public class RacingGameTest {
 
+    private static final String NEW_LINE = System.lineSeparator();
+
     @Test
     void 자동차이름은_5자만_가능하다(){
          assertThatThrownBy(()->new Car("123456")).isInstanceOf(IllegalArgumentException.class).hasMessage("자동차 이름은 5자 이하로 작성해주세요.");
@@ -54,22 +56,6 @@ public class RacingGameTest {
         assertThat(actual).startsWith("Foo:");
     }
 
-    @Test
-    void Laps이_1이고_GO일때_한칸_이동() {
-        RacingGame game = new RacingGame(new Cars("Foo"), 1, new RandomNumberGeneratorStub(4));
-        game.startLap();
-        String actual = game.flushOutput();
-        assertThat(actual).startsWith("Foo: -");
-    }
-/*
-    @Test
-    void random값이_4이상일경우에서_Laps이_2이면_두칸_이동() {
-        RacingGame game = new RacingGame(new Cars("Foo"), 2, new RandomNumberGeneratorStub(4));
-        game.startLap();
-        game.startLap();
-        String actual = game.flushOutput();
-        assertThat(actual).startsWith("Foo: --");
-    }*/
 
     @Test
     void random이_4일경우_자동차_1칸전진() {
@@ -108,6 +94,22 @@ public class RacingGameTest {
         car.tryToMove(3);
         String actual = car.flushOutput();
         assertThat(actual).isEqualTo("Foo: -");
+    }
+
+    @Test
+    void 자동차두대가_모두_한칸전진했을경우_모두_한칸전진한것으로_출력() {
+        Cars cars = new Cars("Foo, Bar");
+        cars.tryToMoveEachCar(new RandomNumberGeneratorStub(4));
+        String actual = cars.flushOutput();
+        assertThat(actual).isEqualTo("Foo: -"+NEW_LINE+"Bar: -"+NEW_LINE);
+    }
+
+    @Test
+    void 자동차한대만_한칸전진했을경우_해당자동차만_한칸전진한것으로_출력() {
+        Cars cars = new Cars("Foo, Bar");
+        cars.tryToMoveEachCar(new RandomNumberGeneratorStub(4,3));
+        String actual = cars.flushOutput();
+        assertThat(actual).isEqualTo("Foo: -"+NEW_LINE+"Bar: "+NEW_LINE);
     }
 
 /*@Test

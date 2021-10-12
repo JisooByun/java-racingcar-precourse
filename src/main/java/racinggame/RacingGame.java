@@ -3,7 +3,6 @@ package racinggame;
 public class RacingGame {
     private Cars cars;
     private final int laps;
-    private StringBuffer outputBuffer;
     private RandomNumberGenerator generator;
 
     public RacingGame(Cars cars, int laps, RandomNumberGenerator generator) {
@@ -19,7 +18,7 @@ public class RacingGame {
     public void startRace() {
         for (int i = 0; i <laps; i++) {
             cars.tryToMoveEachCar(generator);
-            System.out.println(cars.flushResult());
+            System.out.println(cars.flushOutput());
         }
     }
 
