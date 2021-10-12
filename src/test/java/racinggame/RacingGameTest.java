@@ -47,17 +47,6 @@ public class RacingGameTest {
     }
 
     @Test
-    void GameUtils가_random_값이_4이상이면_전진하라는_상태_반환() {
-        boolean actual = GameUtils.isGo(4);
-        assertThat(actual).isTrue();
-    }
-
-    @Test
-    void GameUtils가_random_값이_3이하이면_멈추라는_상태_반환() {
-        boolean actual = GameUtils.isGo(4);
-        assertThat(actual).isTrue();
-    }
-    @Test
     void 랩이_끝날때_결과_출력() {
         RacingGame racingGame = new RacingGame(new Cars("Foo"), 1, new RandomNumberGeneratorImpl());
         racingGame.startRace();
@@ -87,6 +76,38 @@ public class RacingGameTest {
         Car car = new Car("Foo");
         car.tryToMove(4);
         assertThat(car.getPosition()).isEqualTo(1);
+    }
+
+    @Test
+    void random이_3일경우_자동차_멈춤() {
+        Car car = new Car("Foo");
+        car.tryToMove(3);
+        assertThat(car.getPosition()).isEqualTo(0);
+    }
+
+    @Test
+    void 자동차가_한칸전진했을경우_한칸전진한것으로_출력() {
+        Car car = new Car("Foo");
+        car.tryToMove(4);
+        String actual = car.flushOutput();
+        assertThat(actual).isEqualTo("Foo: -");
+    }
+
+    @Test
+    void 자동차가_두칸전진했을경우_두칸전진한것으로_출력() {
+        Car car = new Car("Foo");
+        car.tryToMove(4);
+        car.tryToMove(4);
+        String actual = car.flushOutput();
+        assertThat(actual).isEqualTo("Foo: --");
+    }
+    @Test
+    void 자동차가_한칸전진한뒤_멈춤했을경우_한칸전진한것으로_출력() {
+        Car car = new Car("Foo");
+        car.tryToMove(4);
+        car.tryToMove(3);
+        String actual = car.flushOutput();
+        assertThat(actual).isEqualTo("Foo: -");
     }
 
 /*@Test
