@@ -47,12 +47,19 @@ public class RacingGameTest {
     }
 
     @Test
-    void 랩이_끝날때_결과_출력(){
+    void random_값이_4이상이면_전진() {
+        MoveStatus actual = GameUtils.checkGoOrStop(4);
+        assertThat(actual.isGo()).isTrue();
+    }
+
+    @Test
+    void 랩이_끝날때_결과_출력() {
         RacingGame racingGame = new RacingGame(new Cars("Foo"), 1);
         racingGame.startRace();
         String actual = racingGame.flushOutput();
         assertThat(actual).startsWith("Foo :");
     }
+
 
     /*@Test
     void 트랙_모든_라운드를_실행한뒤_결과_출력() {
