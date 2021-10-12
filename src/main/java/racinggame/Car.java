@@ -1,9 +1,13 @@
 package racinggame;
 
 public class Car {
+    private String name;
+
     public Car(String name) {
         validateNameBlank(name);
-        validateNameLength(name);
+        String noSpaceName = name.trim();
+        validateNameLength(noSpaceName);
+        this.name = noSpaceName;
     }
 
     private void validateNameBlank(String name) {
@@ -13,10 +17,12 @@ public class Car {
     }
 
     private void validateNameLength(String name) {
-        if(name.length() > 5){
+        if (name.length() > 5) {
             throw new IllegalArgumentException("자동차 이름은 5자 이하로 작성해주세요.");
         }
     }
 
-
+    public String getName() {
+        return name;
+    }
 }
