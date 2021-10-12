@@ -1,12 +1,13 @@
 package racinggame;
 
 public class RacingGame {
-
+    private Cars cars;
     private final int laps;
     private StringBuffer outputBuffer;
     private RandomNumberGenerator generator;
 
     public RacingGame(Cars cars, int laps, RandomNumberGenerator generator) {
+        this.cars = cars;
         this.generator = generator;
         this.laps = laps;
     }
@@ -17,7 +18,8 @@ public class RacingGame {
 
     public void startRace() {
         for (int i = 0; i <laps; i++) {
-            startLap();
+            cars.tryToMoveEachCar(generator);
+            System.out.println(cars.flushResult());
         }
     }
 
