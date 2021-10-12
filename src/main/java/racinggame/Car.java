@@ -2,7 +2,6 @@ package racinggame;
 
 public class Car {
     private String name;
-
     public Car(String name) {
         validateNameBlank(name);
         String noSpaceName = name.trim();
