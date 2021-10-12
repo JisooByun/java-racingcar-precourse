@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Cars {
 
-    List<Car> cars;
+    private List<Car> cars;
     public Cars(String input) {
         cars = new ArrayList<>();
         String[] carNames = input.split(",");
@@ -25,7 +25,11 @@ public class Cars {
         }
     }
 
+
     public String flushResult() {
-        return "Foo: -";
+        String result;
+        for (Car car : cars) {
+        }
+        return "";
     }
 }

@@ -1,8 +1,10 @@
 package racinggame;
 
 public class Car {
-    private String name;
+    private final String name;
     private int position;
+    private static final int GO_MIN_NUMBER = 4;
+
     public Car(String name) {
         validateNameBlank(name);
         String noSpaceName = name.trim();
@@ -27,13 +29,21 @@ public class Car {
         return name;
     }
 
-    public void tryToMove(int i) {
-        if(GameUtils.isGo(i)){
+    public void tryToMove(int number) {
+        if(number >= GO_MIN_NUMBER){
             position++;
         };
     }
 
     public int getPosition() {
         return position;
+    }
+
+    public String flushOutput() {
+        StringBuilder result = new StringBuilder(name + ": ");
+        for (int i = 0; i < position; i++) {
+            result.append("-");
+        }
+        return result.toString();
     }
 }
