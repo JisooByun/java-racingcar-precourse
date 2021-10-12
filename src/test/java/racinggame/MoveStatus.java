@@ -6,4 +6,8 @@ public enum MoveStatus {
     public boolean isGo() {
         return this == GO;
     }
+
+    public boolean isStop() {
+        return this==STOP;
+    }
 }

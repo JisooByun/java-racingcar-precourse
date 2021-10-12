@@ -53,6 +53,12 @@ public class RacingGameTest {
     }
 
     @Test
+    void random_값이_3이하이면_멈춤() {
+        MoveStatus actual = GameUtils.checkGoOrStop(3);
+        assertThat(actual.isStop()).isTrue();
+    }
+
+    @Test
     void 랩이_끝날때_결과_출력() {
         RacingGame racingGame = new RacingGame(new Cars("Foo"), 1);
         racingGame.startRace();
