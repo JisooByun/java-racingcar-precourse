@@ -2,11 +2,13 @@ package racinggame;
 
 public class Car {
     private String name;
+    private int position;
     public Car(String name) {
         validateNameBlank(name);
         String noSpaceName = name.trim();
         validateNameLength(noSpaceName);
         this.name = noSpaceName;
+        this.position = 0;
     }
 
     private void validateNameBlank(String name) {
@@ -23,5 +25,15 @@ public class Car {
 
     public String getName() {
         return name;
+    }
+
+    public void tryToMove(int i) {
+        if(GameUtils.isGo(i)){
+            position++;
+        };
+    }
+
+    public int getPosition() {
+        return position;
     }
 }
