@@ -47,23 +47,38 @@ public class RacingGameTest {
     }
 
     @Test
-    void random_값이_4이상이면_전진() {
+    void GameUtils가_random_값이_4이상이면_전진하라는_상태_반환() {
         MoveStatus actual = GameUtils.checkGoOrStop(4);
         assertThat(actual.isGo()).isTrue();
     }
 
     @Test
-    void random_값이_3이하이면_멈춤() {
+    void GameUtils가_random_값이_3이하이면_멈추라는_상태_반환() {
         MoveStatus actual = GameUtils.checkGoOrStop(3);
         assertThat(actual.isStop()).isTrue();
     }
-
     @Test
     void 랩이_끝날때_결과_출력() {
-        RacingGame racingGame = new RacingGame(new Cars("Foo"), 1);
+        RacingGame racingGame = new RacingGame(new Cars("Foo"), 1, new RandomNumberGeneratorImpl());
         racingGame.startRace();
         String actual = racingGame.flushOutput();
-        assertThat(actual).startsWith("Foo :");
+        assertThat(actual).startsWith("Foo:");
+    }
+
+    @Test
+    void Laps이_1이고_GO일때_한칸_이동() {
+        RacingGame game = new RacingGame(new Cars("Foo"), 1, new RandomNumberGeneratorStub(4));
+        game.startLap();
+        String actual = game.flushOutput();
+        assertThat(actual).startsWith("Foo: -");
+    }
+
+    @Test
+    void random값이_4이상일경우에서_Laps이_2이면_두칸_이동() {
+        RacingGame game = new RacingGame(new Cars("Foo"), 1, new RandomNumberGeneratorStub(4));
+        game.startLap();
+        String actual = game.flushOutput();
+        assertThat(actual).startsWith("Foo: --");
     }
 
 
