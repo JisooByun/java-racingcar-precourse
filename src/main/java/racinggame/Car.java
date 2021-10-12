@@ -1,5 +1,7 @@
 package racinggame;
 
+import java.util.Comparator;
+
 public class Car {
     private final String name;
     private int position;
@@ -46,4 +48,11 @@ public class Car {
         }
         return result.toString();
     }
+
+    public static Comparator<Car> carPositionComparator = new Comparator<Car>() {
+        @Override
+        public int compare(Car car1, Car car2) {
+            return car2.getPosition() -car1.getPosition();
+        }
+    };
 }

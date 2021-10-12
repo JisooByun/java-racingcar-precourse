@@ -12,7 +12,7 @@ public class RacingGame {
     }
 
     public String flushOutput() {
-        return "Foo: -";
+        return "최종 우승자는"+ cars.findWinners();
     }
 
     public void startRace() {
@@ -22,7 +22,4 @@ public class RacingGame {
         }
     }
 
-    public void startLap() {
-
-    }
 }

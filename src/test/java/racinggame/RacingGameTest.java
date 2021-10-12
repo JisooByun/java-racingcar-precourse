@@ -48,13 +48,6 @@ public class RacingGameTest {
         assertThat(car3.getName()).isEqualTo("Baz");
     }
 
-    @Test
-    void 랩이_끝날때_결과_출력() {
-        RacingGame racingGame = new RacingGame(new Cars("Foo"), 1, new RandomNumberGeneratorImpl());
-        racingGame.startRace();
-        String actual = racingGame.flushOutput();
-        assertThat(actual).startsWith("Foo:");
-    }
 
 
     @Test
@@ -112,11 +105,20 @@ public class RacingGameTest {
         assertThat(actual).isEqualTo("Foo: -"+NEW_LINE+"Bar: "+NEW_LINE);
     }
 
-/*@Test
-    void 트랙_모든_라운드를_실행한뒤_결과_출력() {
-        RacingGame racingGame = new RacingGame(new Cars("Foo"), 5);
+
+    @Test
+    void 모든_LAP종료후_결과가_특정_최종우승자는으로_시작() {
+        RacingGame racingGame = new RacingGame(new Cars("Foo,Bar"), 1, new RandomNumberGeneratorStub(4));
         racingGame.startRace();
         String actual = racingGame.flushOutput();
         assertThat(actual).startsWith("최종 우승자는");
-    }*/
+    }
+
+    @Test
+    void 모든_랩종료후_우승자만_출력() {
+        RacingGame racingGame = new RacingGame(new Cars("Foo,Bar,Baz"), 2, new RandomNumberGeneratorStub(4,2,5));
+        racingGame.startRace();
+        String actual = racingGame.flushOutput();
+        assertThat(actual).contains("Foo, Baz");
+    }
 }
