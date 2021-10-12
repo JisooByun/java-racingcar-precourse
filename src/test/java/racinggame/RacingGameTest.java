@@ -31,6 +31,18 @@ public class RacingGameTest {
     }
 
     @Test
+    void 시도횟수입력시_숫자아니면_Exception발생(){
+        assertThatThrownBy(() -> InputConsole.validateLaps("tes2t")).isInstanceOf(IllegalArgumentException.class).hasMessage("[ERROR] 숫자를 입력해주세요.");
+    }
+    @Test
+    void 시도횟수입력시_0_또는_음수면_Exception발생(){
+        assertThatThrownBy(() -> InputConsole.validateLaps("0")).isInstanceOf(IllegalArgumentException.class).hasMessage("[ERROR] 시도 횟수는 1이상 입력해주세요.");
+    }
+    @Test
+    void 시도횟수입력시_공백이면_Exception발생(){
+        assertThatThrownBy(() -> InputConsole.validateLaps("")).isInstanceOf(IllegalArgumentException.class).hasMessage("[ERROR] 공백이 아닌 숫자를 입력해주세요.");
+    }
+    @Test
     void 자동차_이름_필드확인() {
          Car car= new Car("Foo");
          assertThat(car.getName()).isEqualTo("Foo");

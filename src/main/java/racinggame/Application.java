@@ -6,8 +6,7 @@ public class Application {
     public static void main(String[] args) {
         // TODO 자동차 경주 게임 구현
         String carNames = InputConsole.enterNameOfCars();
-        System.out.println("시도할 회수는 몇회인가요?");
-        String laps = Console.readLine();
+        String laps = InputConsole.enterLaps();
         RacingGame racingGame = new RacingGame(new Cars(carNames), Integer.parseInt(laps), new RandomNumberGeneratorImpl());
         runLaps(racingGame, laps);
         System.out.println(racingGame.flushWinners());
