@@ -62,4 +62,42 @@ public class InputConsole {
             throw new IllegalArgumentException("[ERROR] 자동차 이름은 5자 이하로 작성해주세요.");
         }
     }
+
+    public static String enterLaps() {
+        String laps;
+        do {
+            System.out.println("시도할 회수는 몇회인가요?");
+            laps = Console.readLine();
+        } while (!validateLaps(laps));
+        return laps;
+    }
+
+    static boolean validateLaps(String laps) {
+        try {
+            validateInputOnlyDigit(laps);
+            validateInputMoreThanOrEqualToOne(laps);
+            validateInputNoBlank(laps);
+            return true;
+        }catch (IllegalArgumentException e){
+            return false;
+        }
+    }
+
+    private static void validateInputNoBlank(String laps) {
+    }
+
+    private static void validateInputMoreThanOrEqualToOne(String laps) {
+    }
+
+    private static void validateInputOnlyDigit(String laps) {
+        boolean isNumeric = true;
+        for (int i = 0; i <laps.length(); i++) {
+            if(!Character.isDigit(laps.charAt(i))){
+                isNumeric = false;
+            }
+        }
+        if(isNumeric){
+            throw new IllegalArgumentException("[ERROR] 숫자를 입력해주세요.");
+        }
+    }
 }
