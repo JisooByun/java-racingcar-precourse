@@ -10,18 +10,18 @@ public class RacingGameTest {
     private static final String NEW_LINE = System.lineSeparator();
 
     @Test
-    void 자동차이름은_5자만_가능하다(){
-         assertThatThrownBy(()->new Car("123456")).isInstanceOf(IllegalArgumentException.class).hasMessage("자동차 이름은 5자 이하로 작성해주세요.");
+    void 자동차이름은_5자만_가능하다() {
+        assertThatThrownBy(() -> InputConsole.validateSeperateCarName("123456")).isInstanceOf(IllegalArgumentException.class).hasMessage("[ERROR] 자동차 이름은 5자 이하로 작성해주세요.");
     }
 
     @Test
     void 자동차이름이_없으면_Exception_발생() {
-        assertThatThrownBy(()->new Car("")).isInstanceOf(IllegalArgumentException.class).hasMessage("자동차 이름은 공백일 수 없습니다. 1~5자 로 작성해주세요.");
+        assertThatThrownBy(() -> InputConsole.validateSeperateCarName("")).isInstanceOf(IllegalArgumentException.class).hasMessage("[ERROR] 자동차 이름은 공백일 수 없습니다. 1~5자 로 작성해주세요.");
     }
 
     @Test
-    void 자동차이름이_null이면_Exception_발생() {
-        assertThatThrownBy(()->new Car(null)).isInstanceOf(IllegalArgumentException.class).hasMessage("자동차 이름은 공백일 수 없습니다. 1~5자 로 작성해주세요.");
+    void 자동차이름_중복되면_Exception_발생() {
+        assertThatThrownBy(() -> InputConsole.validateCarNames("Foo,Baz,Foo")).isInstanceOf(IllegalArgumentException.class).hasMessage("[ERROR] 자동차 이름은 중복될 수 없습니다.");
     }
 
     @Test
@@ -48,6 +48,10 @@ public class RacingGameTest {
         assertThat(car3.getName()).isEqualTo("Baz");
     }
 
+    @Test
+    void 이름_중복확인() {
+
+    }
 
 
     @Test
@@ -69,7 +73,7 @@ public class RacingGameTest {
         Car car = new Car("Foo");
         car.tryToMove(4);
         String actual = car.flushOutput();
-        assertThat(actual).isEqualTo("Foo: -");
+        assertThat(actual).isEqualTo("Foo : -");
     }
 
     @Test
@@ -78,7 +82,7 @@ public class RacingGameTest {
         car.tryToMove(4);
         car.tryToMove(4);
         String actual = car.flushOutput();
-        assertThat(actual).isEqualTo("Foo: --");
+        assertThat(actual).isEqualTo("Foo : --");
     }
     @Test
     void 자동차가_한칸전진한뒤_멈춤했을경우_한칸전진한것으로_출력() {
@@ -86,7 +90,7 @@ public class RacingGameTest {
         car.tryToMove(4);
         car.tryToMove(3);
         String actual = car.flushOutput();
-        assertThat(actual).isEqualTo("Foo: -");
+        assertThat(actual).isEqualTo("Foo : -");
     }
 
     @Test
@@ -94,7 +98,7 @@ public class RacingGameTest {
         Cars cars = new Cars("Foo, Bar");
         cars.tryToMoveEachCar(new RandomNumberGeneratorStub(4));
         String actual = cars.flushOutput();
-        assertThat(actual).isEqualTo("Foo: -"+NEW_LINE+"Bar: -"+NEW_LINE);
+        assertThat(actual).isEqualTo("Foo : -"+NEW_LINE+"Bar : -"+NEW_LINE);
     }
 
     @Test
@@ -102,23 +106,31 @@ public class RacingGameTest {
         Cars cars = new Cars("Foo, Bar");
         cars.tryToMoveEachCar(new RandomNumberGeneratorStub(4,3));
         String actual = cars.flushOutput();
-        assertThat(actual).isEqualTo("Foo: -"+NEW_LINE+"Bar: "+NEW_LINE);
+        assertThat(actual).isEqualTo("Foo : -"+NEW_LINE+"Bar : "+NEW_LINE);
     }
 
 
     @Test
     void 모든_LAP종료후_결과가_특정_최종우승자는으로_시작() {
         RacingGame racingGame = new RacingGame(new Cars("Foo,Bar"), 1, new RandomNumberGeneratorStub(4));
-        racingGame.startRace();
-        String actual = racingGame.flushOutput();
+        racingGame.startNextLap();
+        String actual = racingGame.flushWinners();
         assertThat(actual).startsWith("최종 우승자는");
     }
 
     @Test
-    void 모든_랩종료후_우승자만_출력() {
-        RacingGame racingGame = new RacingGame(new Cars("Foo,Bar,Baz"), 2, new RandomNumberGeneratorStub(4,2,5));
-        racingGame.startRace();
-        String actual = racingGame.flushOutput();
+    void 모든_랩종료후_공동_우승자만_출력() {
+        RacingGame racingGame = new RacingGame(new Cars("Foo,Bar,Baz"), 2, new RandomNumberGeneratorStub(4, 2, 5));
+        racingGame.startNextLap();
+        String actual = racingGame.flushWinners();
         assertThat(actual).contains("Foo, Baz");
+    }
+
+    @Test
+    void 모든_랩종료후_솔로_우승자만_출력() {
+        RacingGame racingGame = new RacingGame(new Cars("Foo,Bar,Baz"), 2, new RandomNumberGeneratorStub(4, 2, 1));
+        racingGame.startNextLap();
+        String actual = racingGame.flushWinners();
+        assertThat(actual).isEqualTo("최종 우승자는 Foo 입니다.");
     }
 }

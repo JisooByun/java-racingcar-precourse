@@ -43,15 +43,14 @@ public class Cars {
     private String findMaxPositionCar(int maxPosition) {
         List<String> winners = new ArrayList<>();
         for (Car car : cars) {
-            winners.add(findNamesInMaxPosition(car, maxPosition));
+            findNamesInMaxPosition(winners,car, maxPosition);
         }
         return String.join(", ",winners );
     }
 
-    private String findNamesInMaxPosition(Car car, int position) {
+    private void findNamesInMaxPosition(List<String> winners,Car car, int position) {
         if (car.getPosition() == position) {
-            return car.getName();
+            winners.add(car.getName());
         }
-        return "";
     }
 }
