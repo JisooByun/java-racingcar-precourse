@@ -64,39 +64,43 @@ public class InputConsole {
     }
 
     public static String enterLaps() {
-        String laps;
+        String input;
         do {
             System.out.println("시도할 회수는 몇회인가요?");
-            laps = Console.readLine();
-        } while (!validateLaps(laps));
-        return laps;
+            input = Console.readLine();
+        } while (!validateInput(input));
+        return input;
     }
 
-    static boolean validateLaps(String laps) {
+    private static boolean validateInput(String laps) {
         try {
-            validateInputOnlyDigit(laps);
-            validateInputMoreThanOrEqualToOne(laps);
-            validateInputNoBlank(laps);
+            validateLaps(laps);
             return true;
         }catch (IllegalArgumentException e){
             return false;
         }
     }
 
+    static void validateLaps(String laps) {
+        validateInputNoBlank(laps);
+        validateInputOnlyDigit(laps);
+        validateInputMoreThanOrEqualToOne(laps);
+    }
+
     private static void validateInputNoBlank(String laps) {
+        if("".equals(laps)){
+            throw new IllegalArgumentException("[ERROR] 공백이 아닌 숫자를 입력해주세요.");
+        }
     }
 
     private static void validateInputMoreThanOrEqualToOne(String laps) {
+        if(Integer.parseInt(laps) < 1){
+            throw new IllegalArgumentException("[ERROR] 시도 횟수는 1이상 입력해주세요.");
+        }
     }
 
     private static void validateInputOnlyDigit(String laps) {
-        boolean isNumeric = true;
-        for (int i = 0; i <laps.length(); i++) {
-            if(!Character.isDigit(laps.charAt(i))){
-                isNumeric = false;
-            }
-        }
-        if(isNumeric){
+        if(!laps.matches("[+-]?\\d*(\\.\\d+)?")){
             throw new IllegalArgumentException("[ERROR] 숫자를 입력해주세요.");
         }
     }
