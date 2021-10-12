@@ -21,4 +21,28 @@ public class RacingGameTest {
     void 자동차이름이_null이면_Exception_발생() {
         assertThatThrownBy(()->new Car(null)).isInstanceOf(IllegalArgumentException.class).hasMessage("자동차 이름은 공백일 수 없습니다. 1~5자 로 작성해주세요.");
     }
+
+    @Test
+    void 자동자이름_좌우에_공백이_포함되어_있을경우_공백제거() {
+        Car car = new Car(" Foo  ");
+        assertThat(car.getName()).isEqualTo("Foo");
+    }
+
+    @Test
+    void 자동차_이름_필드확인() {
+         Car car= new Car("Foo");
+         assertThat(car.getName()).isEqualTo("Foo");
+    }
+
+    @Test
+    void 입력값이_Car객체로_분리되서_생성되는지_확인() {
+        String input = "Foo, Bar, Baz";
+        Cars cars = new Cars(input);
+        Car car1 = cars.get(0);
+        Car car2 = cars.get(1);
+        Car car3 = cars.get(2);
+        assertThat(car1.getName()).isEqualTo("Foo");
+        assertThat(car2.getName()).isEqualTo("Bar");
+        assertThat(car3.getName()).isEqualTo("Baz");
+    }
 }
