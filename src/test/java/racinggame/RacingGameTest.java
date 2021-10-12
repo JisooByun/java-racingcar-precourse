@@ -45,4 +45,20 @@ public class RacingGameTest {
         assertThat(car2.getName()).isEqualTo("Bar");
         assertThat(car3.getName()).isEqualTo("Baz");
     }
+
+    @Test
+    void 랩이_끝날때_결과_출력(){
+        RacingGame racingGame = new RacingGame(new Cars("Foo"), 1);
+        racingGame.startRace();
+        String actual = racingGame.flushOutput();
+        assertThat(actual).startsWith("Foo :");
+    }
+
+    /*@Test
+    void 트랙_모든_라운드를_실행한뒤_결과_출력() {
+        RacingGame racingGame = new RacingGame(new Cars("Foo"), 5);
+        racingGame.startRace();
+        String actual = racingGame.flushOutput();
+        assertThat(actual).startsWith("최종 우승자는");
+    }*/
 }
