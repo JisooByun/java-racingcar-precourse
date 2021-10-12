@@ -25,11 +25,11 @@ public class Cars {
         }
     }
 
-
-    public String flushResult() {
-        String result;
+    public String flushOutput() {
+        StringBuilder result = new StringBuilder();
         for (Car car : cars) {
+            result.append(car.flushOutput()).append(System.lineSeparator());
         }
-        return "";
+        return result.toString();
     }
 }
