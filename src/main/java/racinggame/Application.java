@@ -10,7 +10,7 @@ public class Application {
         // TODO 자동차 경주 게임 구현
         String carNames = InputConsole.enterNameOfCars();
         String laps = InputConsole.enterLaps();
-        RacingGame racingGame = new RacingGame(new Cars(carNames), Integer.parseInt(laps), new RandomNumberGeneratorImpl());
+        RacingGame racingGame = new RacingGame(new Cars(carNames), new RandomNumberGeneratorImpl());
         playGame(racingGame, laps);
     }
 

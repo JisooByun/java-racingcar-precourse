@@ -3,9 +3,10 @@ package racinggame.domain;
 import java.util.Comparator;
 
 public class Car {
+
     private final String name;
-    private int position;
-    private static final int GO_MIN_NUMBER = 4;
+    private Integer position;
+    private static final Integer GO_MIN_NUMBER = 4;
 
     public Car(String name) {
         this.name = name.trim();
@@ -16,14 +17,14 @@ public class Car {
         return name;
     }
 
+    public int getPosition() {
+        return position;
+    }
+
     public void tryToMove(int number) {
         if(number >= GO_MIN_NUMBER){
             position++;
-        };
-    }
-
-    public int getPosition() {
-        return position;
+        }
     }
 
     public String flushOutput() {
@@ -34,10 +35,5 @@ public class Car {
         return result.toString();
     }
 
-    public static Comparator<Car> carPositionComparator = new Comparator<Car>() {
-        @Override
-        public int compare(Car car1, Car car2) {
-            return car2.getPosition() -car1.getPosition();
-        }
-    };
+    public static Comparator<Car> carPositionComparator = (car1, car2) -> car2.getPosition() -car1.getPosition();
 }

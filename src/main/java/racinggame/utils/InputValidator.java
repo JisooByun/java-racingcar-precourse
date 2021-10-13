@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Set;
 
 public class InputValidator {
+
     public static boolean carNamesValidate(String carNamesStr) {
         try {
             validateCarNames(carNamesStr);
