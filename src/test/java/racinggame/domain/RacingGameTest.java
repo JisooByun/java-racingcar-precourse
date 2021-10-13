@@ -85,7 +85,7 @@ public class RacingGameTest {
 
     @Test
     void 모든_LAP종료후_결과가_특정_최종우승자는으로_시작() {
-        RacingGame racingGame = new RacingGame(new Cars("Foo,Bar"), 1, new RandomNumberGeneratorStub(4));
+        RacingGame racingGame = new RacingGame(new Cars("Foo,Bar"), new RandomNumberGeneratorStub(4));
         racingGame.startNextLap();
         String actual = racingGame.flushWinners();
         assertThat(actual).startsWith("최종 우승자는");
@@ -93,7 +93,7 @@ public class RacingGameTest {
 
     @Test
     void 모든_랩종료후_공동_우승자만_출력() {
-        RacingGame racingGame = new RacingGame(new Cars("Foo,Bar,Baz"), 2, new RandomNumberGeneratorStub(4, 2, 5));
+        RacingGame racingGame = new RacingGame(new Cars("Foo,Bar,Baz"),  new RandomNumberGeneratorStub(4, 2, 5));
         racingGame.startNextLap();
         String actual = racingGame.flushWinners();
         assertThat(actual).isEqualTo("최종 우승자는 Foo, Baz 입니다.");
@@ -101,7 +101,7 @@ public class RacingGameTest {
 
     @Test
     void 모든_랩종료후_솔로_우승자만_출력() {
-        RacingGame racingGame = new RacingGame(new Cars("Foo,Bar,Baz"), 2, new RandomNumberGeneratorStub(4, 2, 1));
+        RacingGame racingGame = new RacingGame(new Cars("Foo,Bar,Baz"),  new RandomNumberGeneratorStub(4, 2, 1));
         racingGame.startNextLap();
         String actual = racingGame.flushWinners();
         assertThat(actual).isEqualTo("최종 우승자는 Foo 입니다.");
