@@ -1,5 +1,7 @@
 package racinggame;
 
+import racinggame.utils.RandomNumberGenerator;
+
 public class RandomNumberGeneratorStub implements RandomNumberGenerator {
 
     private int[] numbers;

@@ -1,4 +1,6 @@
-package racinggame;
+package racinggame.domain;
+
+import racinggame.utils.RandomNumberGenerator;
 
 import java.util.ArrayList;
 import java.util.Collections;
