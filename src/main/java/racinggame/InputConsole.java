@@ -77,6 +77,7 @@ public class InputConsole {
             validateLaps(laps);
             return true;
         }catch (IllegalArgumentException e){
+            System.out.println(e.getMessage());
             return false;
         }
     }
