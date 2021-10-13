@@ -2,13 +2,8 @@ package racinggame.domain;
 
 import org.junit.jupiter.api.Test;
 import racinggame.RandomNumberGeneratorStub;
-import racinggame.domain.Car;
-import racinggame.domain.Cars;
-import racinggame.domain.RacingGame;
-import racinggame.utils.InputConsole;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 public class RacingGameTest {
 
