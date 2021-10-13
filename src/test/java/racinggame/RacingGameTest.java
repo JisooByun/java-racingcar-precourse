@@ -58,11 +58,6 @@ public class RacingGameTest {
     }
 
     @Test
-    void 이름_중복확인() {
-
-    }
-
-    @Test
     void random이_4일경우_자동차_1칸전진() {
         Car car = new Car("Foo");
         car.tryToMove(4);
