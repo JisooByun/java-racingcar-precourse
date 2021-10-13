@@ -15,7 +15,7 @@ public class RacingGameTest {
     }
 
     @Test
-    void 자동차이름이_없으면_Exception_발생() {
+    void 자동차이름_입력안하면_Exception_발생() {
         assertThatThrownBy(() -> InputConsole.validateSeperateCarName("")).isInstanceOf(IllegalArgumentException.class).hasMessage("[ERROR] 자동차 이름은 공백일 수 없습니다. 1~5자 로 작성해주세요.");
     }
 
@@ -25,27 +25,24 @@ public class RacingGameTest {
     }
 
     @Test
-    void 자동자이름_좌우에_공백이_포함되어_있을경우_공백제거() {
-        Car car = new Car(" Foo  ");
-        assertThat(car.getName()).isEqualTo("Foo");
-    }
-
-    @Test
     void 시도횟수입력시_숫자아니면_Exception발생(){
         assertThatThrownBy(() -> InputConsole.validateLaps("tes2t")).isInstanceOf(IllegalArgumentException.class).hasMessage("[ERROR] 숫자를 입력해주세요.");
     }
+
     @Test
     void 시도횟수입력시_0_또는_음수면_Exception발생(){
         assertThatThrownBy(() -> InputConsole.validateLaps("0")).isInstanceOf(IllegalArgumentException.class).hasMessage("[ERROR] 시도 횟수는 1이상 입력해주세요.");
     }
+
     @Test
     void 시도횟수입력시_공백이면_Exception발생(){
         assertThatThrownBy(() -> InputConsole.validateLaps("")).isInstanceOf(IllegalArgumentException.class).hasMessage("[ERROR] 공백이 아닌 숫자를 입력해주세요.");
     }
+
     @Test
-    void 자동차_이름_필드확인() {
-         Car car= new Car("Foo");
-         assertThat(car.getName()).isEqualTo("Foo");
+    void 자동자이름_좌우에_공백이_포함되어_있을경우_공백제거() {
+        Car car = new Car(" Foo  ");
+        assertThat(car.getName()).isEqualTo("Foo");
     }
 
     @Test
@@ -64,7 +61,6 @@ public class RacingGameTest {
     void 이름_중복확인() {
 
     }
-
 
     @Test
     void random이_4일경우_자동차_1칸전진() {
@@ -135,7 +131,7 @@ public class RacingGameTest {
         RacingGame racingGame = new RacingGame(new Cars("Foo,Bar,Baz"), 2, new RandomNumberGeneratorStub(4, 2, 5));
         racingGame.startNextLap();
         String actual = racingGame.flushWinners();
-        assertThat(actual).contains("Foo, Baz");
+        assertThat(actual).isEqualTo("최종 우승자는 Foo, Baz 입니다.");
     }
 
     @Test
